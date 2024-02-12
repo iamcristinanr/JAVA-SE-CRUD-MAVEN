@@ -1,5 +1,8 @@
 package org.example.main;
 
+import org.example.model.Employee;
+import org.example.repository.EmployeeRepository;
+import org.example.repository.Repository;
 import org.example.util.DatabaseConnection;
 
 import java.sql.*;
@@ -13,18 +16,12 @@ public class Main {
         //From java 7. Try-with resources.
         // The resources inside the try block are closed at the end, whether or not there is an exception.
 
-        try ( Connection myConn = DatabaseConnection.getInstance();
-            Statement myStamt = myConn.createStatement();
-            ResultSet myRes= myStamt.executeQuery("SELECT * FROM employees ORDER BY first_name");
-            ) {
-            System.out.println("Great, we are connected");
+        try ( Connection myConn = DatabaseConnection.getInstance()){
+              Repository<Employee> repository = new EmployeeRepository();
 
-            while (myRes.next()){
-                System.out.println(myRes.getString("first_name"));
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-            System.out.println("Something went wrong :(");
+              repository.findAll().forEach(System.out::println);
+
         }
-        }
+
+    }
 }
