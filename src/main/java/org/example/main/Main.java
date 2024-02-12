@@ -1,4 +1,6 @@
-package org.example;
+package org.example.main;
+
+import org.example.util.DatabaseConnection;
 
 import java.sql.*;
 
@@ -7,14 +9,11 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args)  throws SQLException {
 
-        String url = "jdbc:mysql://127.0.0.1:3306/project";
-        String user = "root";
-        String pass = "";
 
         //From java 7. Try-with resources.
         // The resources inside the try block are closed at the end, whether or not there is an exception.
 
-        try ( Connection myConn = DriverManager.getConnection(url, user, pass);
+        try ( Connection myConn = DatabaseConnection.getInstance();
             Statement myStamt = myConn.createStatement();
             ResultSet myRes= myStamt.executeQuery("SELECT * FROM employees ORDER BY first_name");
             ) {
