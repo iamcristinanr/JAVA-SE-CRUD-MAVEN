@@ -16,3 +16,6 @@ Inside file pom, right button: Maven: Reload project.
  - Abstract and encapsulate data access.
  - Provides business layer and data persistence layer.
  - The target persistence system doesn't matter much.
+
+## CRUD (Create, Read, Update, Delete)
+
