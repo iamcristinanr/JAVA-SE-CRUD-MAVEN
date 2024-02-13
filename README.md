@@ -24,3 +24,11 @@ Implementation of the methods:
 - save: Creating, updating
 - delete: Deleting
 
+## ACID 
+- Atomicity
+- Consistency
+- Isolation
+- Durability
+
+To test our code with principles ACID we have added a new columm UNIQUE in the ddbb called DNI
+Everything will be done in a single transaction so a single connection will be made SINGELTON
