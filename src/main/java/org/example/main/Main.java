@@ -1,6 +1,15 @@
 package org.example.main;
 
-import org.example.model.Employee;
+import org.example.view.SwingApp;
+
+public class Main {
+    public static void main(String[] args) {
+        SwingApp app = new SwingApp();
+        app.setVisible(true);
+    }
+}
+
+/*import org.example.model.Employee;
 import org.example.repository.EmployeeRepository;
 import org.example.repository.Repository;
 import org.example.util.DatabaseConnection;
@@ -17,7 +26,7 @@ public class Main {
         repository.findAll().forEach(System.out::println);
 
         System.out.println("----Buscando por ID----");
-        System.out.println(repository.getById(1));*/
+        System.out.println(repository.getById(1));
 
 
         //From java 7. Try-with resources.
@@ -51,4 +60,4 @@ public class Main {
         }
 
     }
-}
+}*/
