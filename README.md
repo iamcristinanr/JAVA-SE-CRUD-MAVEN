@@ -32,3 +32,17 @@ Implementation of the methods:
 
 To test our code with principles ACID we have added a new columm UNIQUE in the ddbb called DNI
 Everything will be done in a single transaction so a single connection will be made SINGELTON
+
+## POOL
+Set of database connections that are created and managed for reuse.
+Database connections are quite expensive operations and as such should be kept to a minimum in all possible use cases (in extreme cases, simply avoided).
+
+
+In this case we're going to use: Apache Commons DBCP
+
+
+- setInitialSize(int): Sets the initial size of the connection pool.
+- setMaxTotal(int): Sets the maximum size of connections that can be maintained.
+- setMaxIdle(int): Sets the maximum number of inactive connections we can have.
+- setMinIdle(int): Sets the minimum number of inactive connections we can have.
+- setMaxWaitMillis(long): Sets the response time we would have to wait between each connection.
