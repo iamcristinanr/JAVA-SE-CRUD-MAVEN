@@ -5,12 +5,15 @@ public class Employee {
     private Integer id;
     private String first_name;
 
+    private Integer DNI;
+
     public Employee() {
     }
 
-    public Employee(Integer id, String first_name) {
+    public Employee(Integer id, String first_name, Integer DNI) {
         this.id = id;
         this.first_name = first_name;
+        this.DNI = DNI;
     }
 
     public Integer getId() {
@@ -29,11 +32,21 @@ public class Employee {
         this.first_name = first_name;
     }
 
+    public Integer getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(Integer DNI) {
+        this.DNI = DNI;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
                 ", first_name='" + first_name + '\'' +
+                ", DNI=" + DNI +
                 '}';
     }
 }
+

@@ -1,11 +1,44 @@
 package org.example.main;
 
-import org.example.view.SwingApp;
+import org.example.model.Employee;
+import org.example.repository.EmployeeRepository;
+import org.example.repository.Repository;
+import org.example.util.DatabaseConnection;
+//import org.example.view.SwingApp;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) {
-        SwingApp app = new SwingApp();
-        app.setVisible(true);
+    public static void main(String[] args) throws SQLException {
+        //Lanzar la visual
+        /*SwingApp app = new SwingApp();
+        app.setVisible(true);*/
+
+        try(Connection myConn = DatabaseConnection.getInstance()){
+
+            if(myConn.getAutoCommit()){
+                myConn.setAutoCommit((false));
+            }
+
+            try{
+                Repository<Employee> repository = new EmployeeRepository(myConn);
+
+                System.out.println("Insertar un nuevo empleado");
+                Employee employee = new Employee();
+                employee.setFirst_name("America");
+                employee.setId(5);
+                employee.setDNI(123456789);
+                repository.save(employee);
+                myConn.commit();
+            } catch (SQLException e){
+                myConn.rollback();
+                throw new RuntimeException(e);
+            }
+
+        }
+
+
     }
 }
 
