@@ -18,4 +18,9 @@ Inside file pom, right button: Maven: Reload project.
  - The target persistence system doesn't matter much.
 
 ## CRUD (Create, Read, Update, Delete)
+Implementation of the methods:
+- findAll: Reading
+- getById: Searching
+- save: Creating, updating
+- delete: Deleting
 
