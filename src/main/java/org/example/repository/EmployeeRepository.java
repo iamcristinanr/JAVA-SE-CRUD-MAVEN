@@ -9,16 +9,16 @@ import java.util.List;
 
 public class EmployeeRepository implements Repository<Employee>{
 
-    private Connection myConn;
+private Connection getConnection() throws SQLException{
+    return DatabaseConnection.getConnetion();
+}
 
-    public EmployeeRepository(Connection myConn) {
-        this.myConn = myConn;
-    }
 
     @Override
     public List<Employee> findAll() throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        try(Statement myStamt = myConn.createStatement();
+        try(Connection myConn = getConnection();
+            Statement myStamt = myConn.createStatement();
             ResultSet myRes = myStamt.executeQuery("SELECT * FROM employees")){
             while(myRes.next()){
                 Employee e = createEmployee(myRes);
@@ -33,7 +33,8 @@ public class EmployeeRepository implements Repository<Employee>{
     @Override
     public Employee getById(Integer id) throws SQLException {
         Employee employee = null;
-        try(PreparedStatement myStamt = myConn.prepareStatement("SELECT * FROM employees WHERE id = ?")){
+        try(Connection myConn = getConnection();
+            PreparedStatement myStamt = myConn.prepareStatement("SELECT * FROM employees WHERE id = ?")){
             myStamt.setInt(1,id);
             try(ResultSet myRes = myStamt.executeQuery()){
                 if(myRes.next()){
@@ -53,7 +54,8 @@ public class EmployeeRepository implements Repository<Employee>{
         }else {
             sql = "INSERT INTO employees(first_name, DNI) VALUES(?,?)";
         }
-        try(PreparedStatement myStamt = myConn.prepareStatement(sql)){
+        try(Connection myConn = getConnection();
+            PreparedStatement myStamt = myConn.prepareStatement(sql)){
             //all columms
             myStamt.setString(1, employee.getFirst_name());
             myStamt.setInt(2, employee.getDNI());
@@ -69,7 +71,8 @@ public class EmployeeRepository implements Repository<Employee>{
 
     @Override
     public void delete(Integer id) throws SQLException {
-        try(PreparedStatement myStamt = myConn.prepareStatement("DELETE FROM employees WHERE id=?")){
+        try(Connection myConn = getConnection();
+            PreparedStatement myStamt = myConn.prepareStatement("DELETE FROM employees WHERE id=?")){
             myStamt.setInt(1,id);
             myStamt.executeUpdate();
         }

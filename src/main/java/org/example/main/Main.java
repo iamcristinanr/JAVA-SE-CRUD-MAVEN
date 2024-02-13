@@ -11,11 +11,23 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
+
+        System.out.println("--Listando todos--");
+        Repository<Employee> repository = new EmployeeRepository();
+
+        repository.findAll().forEach(System.out::println);
+
+        System.out.println("----Buscando por ID----");
+        System.out.println(repository.getById(2));
+
+
+    }
+}
         //Lanzar la visual
         /*SwingApp app = new SwingApp();
         app.setVisible(true);*/
 
-        try(Connection myConn = DatabaseConnection.getInstance()){
+        /*try(Connection myConn = DatabaseConnection.getInstance()){
 
             if(myConn.getAutoCommit()){
                 myConn.setAutoCommit((false));
@@ -41,7 +53,7 @@ public class Main {
 
     }
 }
-
+*/
 /*import org.example.model.Employee;
 import org.example.repository.EmployeeRepository;
 import org.example.repository.Repository;
