@@ -12,6 +12,13 @@ import java.sql.*;
 public class Main {
     public static void main(String[] args)  throws SQLException {
 
+       /* System.out.println("---Listando todos----");
+        Repository<Employee> repository = new EmployeeRepository();
+        repository.findAll().forEach(System.out::println);
+
+        System.out.println("----Buscando por ID----");
+        System.out.println(repository.getById(1));*/
+
 
         //From java 7. Try-with resources.
         // The resources inside the try block are closed at the end, whether or not there is an exception.
@@ -19,7 +26,27 @@ public class Main {
         try ( Connection myConn = DatabaseConnection.getInstance()){
               Repository<Employee> repository = new EmployeeRepository();
 
+              System.out.println("---Listando todos----");
               repository.findAll().forEach(System.out::println);
+
+              System.out.println("---Listando el empleado id 1----");
+              System.out.println(repository.getById(1));
+
+              System.out.println("---Actualizando empleado----");
+              Employee employee = new Employee();
+
+              //All attributes to update
+              employee.setFirst_name("Diego");
+              employee.setId(1);
+              repository.save(employee);
+
+              System.out.println("---Empleado actualizado---");
+              repository.findAll().forEach(System.out::println);
+
+              System.out.println("---Empleado eliminado---");
+              repository.delete(1);
+              repository.findAll().forEach(System.out::println);
+
 
         }
 

@@ -16,22 +16,22 @@ public class EmployeeRepository implements Repository<Employee>{
     @Override
     public List<Employee> findAll() throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        try(Connection myConn = getConnection();
-            Statement myStamt = myConn.createStatement();
+        try(Statement myStamt = getConnection().createStatement();
             ResultSet myRes = myStamt.executeQuery("SELECT * FROM employees")){
             while(myRes.next()){
                 Employee e = createEmployee(myRes);
                 employees.add(e);
+
             }
         }
+
         return employees;
     }
 
     @Override
     public Employee getById(Integer id) throws SQLException {
         Employee employee = null;
-        try(Connection myConn = getConnection();
-            PreparedStatement myStamt = myConn.prepareStatement("SELECT * FROM employees WHERE id = ?")){
+        try(PreparedStatement myStamt = getConnection().prepareStatement("SELECT * FROM employees WHERE id = ?")){
             myStamt.setInt(1,id);
             try(ResultSet myRes = myStamt.executeQuery()){
                 if(myRes.next()){
@@ -45,19 +45,17 @@ public class EmployeeRepository implements Repository<Employee>{
     @Override
     public void save(Employee employee) {
         String sql;
-        // Si contiene un valor numerico mayor que 0, entonces existe id y es un update
+        // If id>0, then exist id so update, else insert
         if(employee.getId()!= null && employee.getId()>0) {
-            sql = "UPDATE employees SET first_name =?, pa_surname=?, ma_surname=?, email=?, salary=?, curp=? WHERE id=?";
+            sql = "UPDATE employees SET first_name =? WHERE id=?";
         }else {
-            sql = "INSERT INTO employees(first_name, pa_surname, ma_surname, email, salary, curp) VALUES(?,?,?,?,?,?)";
+            sql = "INSERT INTO employees(first_name) VALUES(?)";
         }
-        try(Connection myConn = getConnection();
-            PreparedStatement myStamt = myConn.prepareStatement(sql)){
+        try(PreparedStatement myStamt = getConnection().prepareStatement(sql)){
+            //all columms
             myStamt.setString(1, employee.getFirst_name());
-
-
             if(employee.getId() != null && employee.getId()>0) {
-                myStamt.setInt(7, employee.getId());
+                myStamt.setInt(2, employee.getId());
             }
             myStamt.executeUpdate();
         } catch (SQLException e) {
@@ -67,8 +65,7 @@ public class EmployeeRepository implements Repository<Employee>{
 
     @Override
     public void delete(Integer id) throws SQLException {
-        try(Connection myConn = getConnection();
-            PreparedStatement myStamt = myConn.prepareStatement("DELETE FROM employees WHERE id=?")){
+        try(PreparedStatement myStamt = getConnection().prepareStatement("DELETE FROM employees WHERE id=?")){
             myStamt.setInt(1,id);
             myStamt.executeUpdate();
         }
