@@ -46,3 +46,5 @@ In this case we're going to use: Apache Commons DBCP
 - setMaxIdle(int): Sets the maximum number of inactive connections we can have.
 - setMinIdle(int): Sets the minimum number of inactive connections we can have.
 - setMaxWaitMillis(long): Sets the response time we would have to wait between each connection.
+
+## JPA (DEVELOPING)
