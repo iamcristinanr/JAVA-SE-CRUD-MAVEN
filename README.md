@@ -47,4 +47,8 @@ In this case we're going to use: Apache Commons DBCP
 - setMinIdle(int): Sets the minimum number of inactive connections we can have.
 - setMaxWaitMillis(long): Sets the response time we would have to wait between each connection.
 
+## SWING APP
+Part of the code has a graphical interface (under comments) for its implementation and in 
+this way interact with the end user
+
 ## JPA (DEVELOPING)
